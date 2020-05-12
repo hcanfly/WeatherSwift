@@ -139,7 +139,7 @@ final class ViewController: UIViewController {
         }
 
         self.backgroundIsRain = isRaining
-        let backgroundImage = self.backgroundIsRain ? UIImage(named: "RainyDay01") : UIImage(named: "BlueSky")
+        let backgroundImage = self.backgroundIsRain ? UIImage(named: "RainyDay01") : self.backgroundImage
         self.blurredBackgroundImageView.layer.opacity = 0.0
         UIView.transition(with: self.backgroundImageView,
                           duration: 2.0,
