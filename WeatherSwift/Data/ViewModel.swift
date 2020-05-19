@@ -59,7 +59,7 @@ final class ViewModel {
 
     //MARK: -  Details panel
     var feelsLike: String {
-        return doubleToRoundedString(dbl: self.current.RealFeelTemperature.Imperial.Value) + degreeChar
+        return doubleToRoundedString(dbl: self.current.ApparentTemperature.Imperial.Value) + degreeChar
     }
 
     var uvIndexColor: UIColor {

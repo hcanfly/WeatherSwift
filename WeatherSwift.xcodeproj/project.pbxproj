@@ -58,6 +58,8 @@
 		3E98F9652465A5C0004C2A87 /* 32-s.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E98F93D2465A5C0004C2A87 /* 32-s.png */; };
 		3E98F9662465A5C0004C2A87 /* 05-s.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E98F93E2465A5C0004C2A87 /* 05-s.png */; };
 		3E98F9672465A5C0004C2A87 /* 15-s.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E98F93F2465A5C0004C2A87 /* 15-s.png */; };
+		3EFCDF90247437BF001DC99E /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCDF8E247437BF001DC99E /* AsyncOperation.swift */; };
+		3EFCDF92247440DA001DC99E /* FetchWeatherOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCDF91247440DA001DC99E /* FetchWeatherOperations.swift */; };
 		4EC8A763245E247200E05F99 /* PanelHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8A762245E247200E05F99 /* PanelHeaderView.swift */; };
 		4EC8A765245E28ED00E05F99 /* DetailsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8A764245E28ED00E05F99 /* DetailsPanelView.swift */; };
 		4EC8A76A245E786400E05F99 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8A768245E786400E05F99 /* ForecastView.swift */; };
@@ -118,6 +120,8 @@
 		3E98F93D2465A5C0004C2A87 /* 32-s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "32-s.png"; sourceTree = "<group>"; };
 		3E98F93E2465A5C0004C2A87 /* 05-s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "05-s.png"; sourceTree = "<group>"; };
 		3E98F93F2465A5C0004C2A87 /* 15-s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "15-s.png"; sourceTree = "<group>"; };
+		3EFCDF8E247437BF001DC99E /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		3EFCDF91247440DA001DC99E /* FetchWeatherOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchWeatherOperations.swift; sourceTree = "<group>"; };
 		4EC8A762245E247200E05F99 /* PanelHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelHeaderView.swift; sourceTree = "<group>"; };
 		4EC8A764245E28ED00E05F99 /* DetailsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPanelView.swift; sourceTree = "<group>"; };
 		4EC8A768245E786400E05F99 /* ForecastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 		3E84A4AF246323D600685E69 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				3EFCDF91247440DA001DC99E /* FetchWeatherOperations.swift */,
+				3EFCDF8E247437BF001DC99E /* AsyncOperation.swift */,
 				3E84A4A1245B1C8D00685E69 /* Model.swift */,
 				3E84A4AB245F44E800685E69 /* ViewModel.swift */,
 				3E84A49F245B135000685E69 /* NetworkData.swift */,
@@ -355,10 +361,12 @@
 				3E84A4A2245B1C8D00685E69 /* Model.swift in Sources */,
 				4EC8A76B245E786400E05F99 /* WindAndPressureView.swift in Sources */,
 				3E84A4A0245B135000685E69 /* NetworkData.swift in Sources */,
+				3EFCDF90247437BF001DC99E /* AsyncOperation.swift in Sources */,
 				4EC8A765245E28ED00E05F99 /* DetailsPanelView.swift in Sources */,
 				3E84A490245B131300685E69 /* ViewController.swift in Sources */,
 				4EC8A763245E247200E05F99 /* PanelHeaderView.swift in Sources */,
 				3E84A48C245B131300685E69 /* AppDelegate.swift in Sources */,
+				3EFCDF92247440DA001DC99E /* FetchWeatherOperations.swift in Sources */,
 				3E84A48E245B131300685E69 /* SceneDelegate.swift in Sources */,
 				3E84A4AC245F44E800685E69 /* ViewModel.swift in Sources */,
 			);
@@ -507,6 +515,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WeatherSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -514,7 +523,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gary.WeatherSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -525,6 +534,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WeatherSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,7 +542,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gary.WeatherSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

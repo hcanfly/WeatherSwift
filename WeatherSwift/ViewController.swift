@@ -27,7 +27,7 @@ final class ViewController: UIViewController {
     private var detailsPanel: DetailsPanelView!
     private var forecastView: ForecastView!
     private var windPressureView: WindAndPressureView!
-    private var downloadCount = 0
+    private var downloadinProgress = false
 
 
     override func loadView() {
@@ -44,14 +44,14 @@ final class ViewController: UIViewController {
         self.blurredBackgroundImageView.layer.opacity = 0.0
         self.view.addSubview(self.blurredBackgroundImageView)
 
-        // for next line, also need to set UIViewControllerBasedStatusBarAppearance to false in info.plist
-        self.navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        // for next line, also need to set UIViewControllerBasedStatusBarAppearance to false in info.plist but did it in IB
+        //self.navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         self.navigationItem.title = "Mountain View"
+        // this is broken in iOS 13.5
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.isTranslucent = false
-        // good oolor, but can't see refresh button
-        //self.navigationController!.navigationBar.barTintColor = UIColor(hex: 0x678DCE)
+        //self.navigationController!.navigationBar.barTintColor = .black        // partial workaground for 13.5
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: .handleRefreshButtonTapped)
 
@@ -89,7 +89,7 @@ final class ViewController: UIViewController {
     }
 
     @objc func handleRefreshTapped() {
-        guard self.downloadCount == 0 else {
+        guard self.downloadinProgress == false else {
             return
         }
 
@@ -129,6 +129,7 @@ final class ViewController: UIViewController {
         ])
     }
 
+    // not called in iOS 13.5. hopefully this gets fixed in the future
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -139,7 +140,7 @@ final class ViewController: UIViewController {
         }
 
         self.backgroundIsRain = isRaining
-        let backgroundImage = self.backgroundIsRain ? UIImage(named: "RainyDay01") : self.backgroundImage
+        let backgroundImage = self.backgroundIsRain ? UIImage(named: "RainyDay01") : UIImage(named: "MountainView")
         self.blurredBackgroundImageView.layer.opacity = 0.0
         UIView.transition(with: self.backgroundImageView,
                           duration: 2.0,
@@ -151,50 +152,26 @@ final class ViewController: UIViewController {
     }
 
     private func getWeather() {
-        self.downloadCount = 0
+        self.downloadinProgress = true
 
-        self.getCurrentWeather()
-        self.getForecastWeather()
-    }
+        let queue = OperationQueue()
+        let fetchCurrent = FetchCurrentWeatherOperation()
+        let fetchForecast = FetchForecastWeatherOperation()
+        queue.addOperations([fetchForecast, fetchCurrent], waitUntilFinished: true)
 
-    private func getCurrentWeather() {
-        NetworkData.getCurrentWeather(myType: [CurrentData].self)  { [weak self] weather in
-
-            if let self = self {
-                ViewModel.shared.current = weather[0]
-
-                self.setBackgroundImage(isRaining: ViewModel.shared.isRaining)
-
-                self.downloadCount += 1
-                self.refreshViews()
-
-            }
-        }
-    }
-
-    private func getForecastWeather() {
-        NetworkData.getForecastWeather(myType: ForecastData.self)  { [weak self] weather in
-
-            if let self = self {
-                ViewModel.shared.forecast = weather
-
-                self.downloadCount += 1
-                self.refreshViews()
-
-            }
-        }
+        self.refreshViews()
     }
 
     private func refreshViews() {
 
-        if self.downloadCount == 2 {        // wait until we have both current and forecast
-            self.currentConditionsView.reloadData()
-            self.detailsPanel.reloadData()
-            self.forecastView.reloadData()
-            self.windPressureView.reloadData()
-            self.view.setNeedsDisplay()
-            self.downloadCount = 0
-        }
+        self.setBackgroundImage(isRaining: ViewModel.shared.isRaining)
+
+        self.currentConditionsView.reloadData()
+        self.detailsPanel.reloadData()
+        self.forecastView.reloadData()
+        self.windPressureView.reloadData()
+        self.view.setNeedsDisplay()
+        self.downloadinProgress = false
     }
 
 }
@@ -225,3 +202,10 @@ extension ViewController : UIScrollViewDelegate {
     }
 
 }
+
+// not called in iOS 13.5. hopefully this gets fixed in the future
+//extension UINavigationController {
+//    open override var preferredStatusBarStyle: UIStatusBarStyle {
+//        .lightContent
+//    }
+//}

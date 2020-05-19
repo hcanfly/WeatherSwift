@@ -37,10 +37,10 @@ struct CurrentData : Decodable {
     let EpochTime: Int
     let WeatherText: String
     let WeatherIcon: Int
-    let PrecipitationType: String?      // check for "Rain" if not nil
+    let PrecipitationType: String?          // check for "Rain" if not nil
     let IsDayTime: Bool
     let Temperature: ImperialInfo
-    let RealFeelTemperature: ImperialInfo
+    let RealFeelTemperature: ImperialInfo   // "Patented AccuWeather RealFeel Temperature"
     let RelativeHumidity: Int?
     let Wind: WindInfo
     let UVIndex: Int?

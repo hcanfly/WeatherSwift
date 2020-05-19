@@ -20,13 +20,13 @@ enum NetworkData {
             if let data = data {
                 //print(String(bytes: data, encoding: String.Encoding.utf8))
                 let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                //jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                 //jsonDecoder.dateDecodingStrategy = .iso8601   // secondsSince1970
                 do {
                     let theData = try jsonDecoder.decode(T.self, from: data)
-                    DispatchQueue.main.async {
+                    //DispatchQueue.main.async {
                         completion(theData)
-                    }
+                    //}
                 } catch {
                     print("Error parsing JSON")
                 }
