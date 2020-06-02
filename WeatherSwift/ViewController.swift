@@ -47,7 +47,7 @@ final class ViewController: UIViewController {
         // for next line, also need to set UIViewControllerBasedStatusBarAppearance to false in info.plist but did it in IB
         //self.navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         self.navigationItem.title = "Mountain View"
-        // this is broken in iOS 13.5
+        // this is broken in iOS 13.5 simulator. looks fine on my 7 Plus
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.isTranslucent = false
@@ -202,10 +202,3 @@ extension ViewController : UIScrollViewDelegate {
     }
 
 }
-
-// not called in iOS 13.5. hopefully this gets fixed in the future
-//extension UINavigationController {
-//    open override var preferredStatusBarStyle: UIStatusBarStyle {
-//        .lightContent
-//    }
-//}

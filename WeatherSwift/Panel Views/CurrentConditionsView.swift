@@ -48,11 +48,10 @@ final class CurrentConditionsView : UIView {
         self.lowTempLabel.textColor = .white
         self.lowTempLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        self.currentTempLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         self.currentTempLabel.textColor = .white
         self.currentTempLabel.translatesAutoresizingMaskIntoConstraints = false
-        currentTempLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont(name: "HelveticaNeue-UltraLight", size: 72)!)
-        currentTempLabel.adjustsFontForContentSizeCategory = true
+        self.currentTempLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont(name: "HelveticaNeue-UltraLight", size: 72)!)
+        self.currentTempLabel.adjustsFontForContentSizeCategory = true
 
         self.addSubview(self.condtionsIconView)
         self.addSubview(self.conditionsDescription)

@@ -13,7 +13,7 @@ enum NetworkData {
 
     static func fetch<T: Decodable>(url: URL?, myType: T.Type, completion: @escaping (T) -> Void) {
           guard let url = url else {
-            fatalError("Invalid URL")
+            fatalError("Did you enter your AccuWeather API Key?")
           }
 
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
