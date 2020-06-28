@@ -29,6 +29,7 @@ enum NetworkData {
                     //}
                 } catch {
                     print("Error parsing JSON")
+                    //print(String(bytes: data, encoding: String.Encoding.utf8))
                 }
             } else {
                 print("Download error: " + error!.localizedDescription)
@@ -57,7 +58,7 @@ enum NetworkData {
 
 
 let locationCode = "337169"         // Mountain View, CA
-let accuWeatherapikey = "<your AccuWeather api key>"  // <your AccuWeather api key>
+let accuWeatherapikey = "YQAGA3sYLNyKBajv63vHNAPHyO3EZGJK"  // <your AccuWeather api key>
 
 extension URL {
 

@@ -13,7 +13,9 @@ public final class FetchCurrentWeatherOperation: AsyncOperation {
     override final public func main() {
 
         NetworkData.getCurrentWeather(myType: [CurrentData].self)  { [weak self] current in
-            ViewModel.shared.current = current[0]
+            if current.count > 0 {
+                ViewModel.shared.current = current.first!
+            }
             self?.finish()
         }
     }

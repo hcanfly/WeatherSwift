@@ -14,6 +14,7 @@ private extension Selector {
     static let handleRefreshButtonTapped = #selector(ViewController.handleRefreshTapped)
 }
 
+
 final class ViewController: UIViewController {
     private var backgroundImageView: UIImageView!
     private var blurredBackgroundImageView: UIImageView!
@@ -73,7 +74,7 @@ final class ViewController: UIViewController {
         self.forecastView = ForecastView(frame: CGRect.zero)
         self.forecastView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.addSubview(self.forecastView)
-        
+
         self.windPressureView = WindAndPressureView(frame: CGRect.zero)
         self.windPressureView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.addSubview(self.windPressureView)
@@ -133,7 +134,7 @@ final class ViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     private func setBackgroundImage(isRaining: Bool) {
         guard isRaining != self.backgroundIsRain else {
             return
@@ -180,6 +181,7 @@ extension ViewController : UIScrollViewDelegate {
 
     // Using the Accelerate framework and Convolution you can apply a blur during scrolling
     // however, it uses a lot of CPU. Don't want to use up the battery for a simple app.
+    // Using a CIFilter blur is too slow to use while scrolling.
     // So, this is old method, but it works just fine and is easy on the CPU.
     // Put a blurred image in front of the background image. Set its opacity to 0. Then adjust
     // the opacity while scrolling.
@@ -188,17 +190,20 @@ extension ViewController : UIScrollViewDelegate {
             return
         }
 
+        // a scroll beyond this point gets full blur effect
         let scrollThreshold = self.view.bounds.size.height * 0.6
+        let minScrollThreshold: CGFloat = 20.0       // don't start blurring until we've scrolled a bit
 
-        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y <= scrollThreshold {
+        if scrollView.contentOffset.y > minScrollThreshold && scrollView.contentOffset.y <= scrollThreshold {
             let percent = Float(scrollView.contentOffset.y / scrollThreshold)
 
             self.blurredBackgroundImageView.layer.opacity = percent
         } else if scrollView.contentOffset.y > scrollThreshold {
             self.blurredBackgroundImageView.layer.opacity = 1.0
-        } else if scrollView.contentOffset.y <= 0 {
+        } else if scrollView.contentOffset.y <= minScrollThreshold {
             self.blurredBackgroundImageView.layer.opacity = 0.0
         }
     }
 
 }
+
