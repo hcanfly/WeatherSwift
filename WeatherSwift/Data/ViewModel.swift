@@ -76,7 +76,11 @@ final class ViewModel {
 
     //MARK: -  Wind and Pressure panel
     var windSpeedString: String {
-        return doubleToRoundedString(dbl: self.current.Wind.Speed.Imperial.Value)
+        if self.current.Wind.Speed.Imperial.Value < 0.5 {
+            return "0"
+        } else{
+            return doubleToRoundedString(dbl: self.current.Wind.Speed.Imperial.Value)
+        }
     }
 
     var windSpeed: Double {
